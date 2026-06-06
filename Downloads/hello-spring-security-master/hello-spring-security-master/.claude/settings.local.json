@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Stop-Process *)",
+      "PowerShell(mvn package *)",
+      "PowerShell(cd \"C:\\\\Users\\\\Hansung\\\\IdeaProjects\\\\hello-spring-security\"; \\(Get-Content app.log\\).Count; Get-Content app.log | Select-Object -Last 10)",
+      "PowerShell(cd \"C:\\\\Users\\\\Hansung\\\\IdeaProjects\\\\hello-spring-security\"; \\(Get-Content app.log\\).Count)",
+      "PowerShell(Start-Process \"http://localhost:8080\")",
+      "PowerShell(Start-Process \"http://localhost:8080/login\")",
+      "PowerShell(pip show *)",
+      "Bash(python generate_lab_doc.py)",
+      "Bash(Test-Path *)",
+      "Bash(kill 10192)",
+      "PowerShell(Get-Process *)",
+      "Bash(mvn test *)",
+      "Bash(mvn compile *)",
+      "Bash(mvn clean *)",
+      "Bash(docker info *)",
+      "Bash(docker compose *)",
+      "Bash(docker exec *)",
+      "Bash(echo \"exit:$?\")",
+      "Bash(curl -s http://localhost:8080/login)",
+      "Bash(curl *)",
+      "Bash(netstat -ano)",
+      "Bash(findstr \":8080\")",
+      "Bash(findstr \"LISTENING\")",
+      "Bash(taskkill *)",
+      "Bash(del \"C:\\\\Users\\\\Hansung\\\\IdeaProjects\\\\hello-spring-security\\\\src\\\\test\\\\java\\\\kr\\\\ac\\\\hansung\\\\service\\\\UserServiceTest.java\")",
+      "Bash(del \"C:\\\\Users\\\\Hansung\\\\IdeaProjects\\\\hello-spring-security\\\\src\\\\test\\\\java\\\\kr\\\\ac\\\\hansung\\\\service\\\\ProductServiceTest.java\")",
+      "Bash(python -c ' *)",
+      "Bash(python *)",
+      "Bash(mvn spring-boot:run)"
+    ]
+  }
+}
