@@ -38,4 +38,24 @@ public class UserService {
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
+
+    @Transactional
+    public void changePassword(String email, kr.ac.hansung.dto.PasswordChangeDto dto) {
+        // 1. 현재 사용자 조회
+        kr.ac.hansung.entity.User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        // 2. 현재 비밀번호 일치 여부 검증 (평문 vs 해시값)
+        if (!passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
+        }
+
+        // 3. 새 비밀번호와 확인용 비밀번호 일치 여부 검증
+        if (!dto.getNewPassword().equals(dto.getNewPasswordConfirm())) {
+            throw new IllegalArgumentException("새 비밀번호가 일치하지 않습니다.");
+        }
+
+        // 4. 새 비밀번호 암호화 후 변경 (더티 체킹 적용)
+        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+    }
 }
