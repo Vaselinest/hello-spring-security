@@ -13,6 +13,8 @@ import kr.ac.hansung.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import kr.ac.hansung.entity.Product;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 
 @Controller
 @RequestMapping("/products")
@@ -56,6 +58,21 @@ public class ProductController {
         return "products/add";
     }
 
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable Long id, Model model) {
+        Product product = productService.findById(id);
+
+        ProductDto dto = new ProductDto();
+        dto.setName(product.getName());
+        dto.setDescription(product.getDescription());
+        dto.setPrice(product.getPrice());
+        dto.setStock(product.getStock());
+
+        model.addAttribute("product", dto);
+        model.addAttribute("productId", id); // 수정 폼 action URL을 위해 id 전달
+        return "products/edit";
+    }
+
     @PostMapping
     public String save(@ModelAttribute ProductDto dto) {
         productService.save(dto);
@@ -65,6 +82,15 @@ public class ProductController {
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
         productService.deleteById(id);
+        return "redirect:/products";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, @Valid @ModelAttribute("product") ProductDto dto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "products/edit";
+        }
+        productService.updateProduct(id, dto);
         return "redirect:/products";
     }
 }
